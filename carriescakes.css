@@ -15,7 +15,12 @@
 		
 	}
 
+	.navlist a{
+		text-decoration: none;
+		color: #614126;
+	}
 
+	
 	.storefront{
 		margin: 0px 0px 0px;		
 		display: block;
