@@ -1,0 +1,119 @@
+<!doctype html>
+	<html>
+		<head>
+			<link rel="stylesheet" type="text/css" href="carriescakes.css">
+			<link href='http://fonts.googleapis.com/css?family=Lobster+Two:700' rel='stylesheet' type='text/css'>		
+		</head>
+		<body>
+			<header class="nav">
+				<nav class="navbar">
+					<ul class="navlist">
+						<li class="navlink"> Home </li>
+						<li class="navlink"> Menu </li>
+						<li class="navlink"> Contact </li>
+						<li class="navlink"> About </li>
+					</ul>
+				</nav>
+			</header>
+			<span class="storefront">
+				<img class="main_img" src="shop1.jpg">
+			</span>			
+				<div class="scroll-pane ui-widget ui-widget-header ui-corner-all slider">
+ 					 <div class="scroll-content">
+   						 <div class="scroll-content-item ui-widget-header"><img class="cupcakeimg" src="cupcake1.jpg">Birthday Cake Cupcake<button type="button" class="Btn">Add to Order</button></div>
+					     <div class="scroll-content-item ui-widget-header"><img class="cupcakeimg" src="cupcake2.jpg">Blueberry Scone Cupcake<button type="button" class="Btn">Add to Order</button></div>
+					     <div class="scroll-content-item ui-widget-header"><img class="cupcakeimg" src="cupcake3.jpg">Chocolate Mousse Cupcake<button type="button" class="Btn">Add to Order</button></div>
+					     <div class="scroll-content-item ui-widget-header"><img class="cupcakeimg" src="cupcake4.jpg">Black Cherry Cupcake<button type="button" class="Btn">Add to Order</button></div>
+					     <div class="scroll-content-item ui-widget-header"><img class="cupcakeimg" src="cupcake5.jpg">Birthday Cupcake<button type="button" class="Btn">Add to Order</button></div>
+					     <div class="scroll-content-item ui-widget-header"><img class="cupcakeimg" src="cupcake6.jpg">Lemon Spring Cupckae<button type="button" class="Btn">Add to Order</button></div>
+					     <div class="scroll-content-item ui-widget-header"><img class="cupcakeimg" src="cupcake7.jpg">Reeses Cupcake<button type="button" class="Btn">Add to Order</button></div>
+					     <div class="scroll-content-item ui-widget-header"><img class="cupcakeimg" src="cupcake8.jpg">Halloween Cupcake<button type="button" class="Btn">Add to Order</button></div>
+					     <div class="scroll-content-item ui-widget-header"><img class="cupcakeimg" src="cupcake9.jpg">Gingerbread Cupcake<button type="button" class="Btn">Add to Order</button></div>
+					     <div class="scroll-content-item ui-widget-header"><img class="cupcakeimg" src="cupcake10.jpg">Vanilla Cupcake<button type="button" class="Btn">Add to Order</button></div>
+					     
+  					</div>
+                    <div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
+                  	  <div class="scroll-bar"></div>
+                   </div>
+            </div>
+		</body>
+		<footer>
+
+
+		<script>
+				  
+  $(function() {
+    //scrollpane parts
+    var scrollPane = $( ".scroll-pane" ),
+      scrollContent = $( ".scroll-content" );
+ 
+    //build slider
+    var scrollbar = $( ".scroll-bar" ).slider({
+      slide: function( event, ui ) {
+        if ( scrollContent.width() > scrollPane.width() ) {
+          scrollContent.css( "margin-left", Math.round(
+            ui.value / 100 * ( scrollPane.width() - scrollContent.width() )
+          ) + "px" );
+        } else {
+          scrollContent.css( "margin-left", 0 );
+        }
+      }
+    });
+ 
+    //append icon to handle
+    var handleHelper = scrollbar.find( ".ui-slider-handle" )
+    .mousedown(function() {
+      scrollbar.width( handleHelper.width() );
+    })
+    .mouseup(function() {
+      scrollbar.width( "100%" );
+    })
+    .append( "<span class='ui-icon ui-icon-grip-dotted-vertical'></span>" )
+    .wrap( "<div class='ui-handle-helper-parent'></div>" ).parent();
+ 
+    //change overflow to hidden now that slider handles the scrolling
+    scrollPane.css( "overflow", "hidden" );
+ 
+    //size scrollbar and handle proportionally to scroll distance
+    function sizeScrollbar() {
+      var remainder = scrollContent.width() - scrollPane.width();
+      var proportion = remainder / scrollContent.width();
+      var handleSize = scrollPane.width() - ( proportion * scrollPane.width() );
+      scrollbar.find( ".ui-slider-handle" ).css({
+        width: handleSize,
+        "margin-left": -handleSize / 2
+      });
+      handleHelper.width( "" ).width( scrollbar.width() - handleSize );
+    }
+ 
+    //reset slider value based on scroll content position
+    function resetValue() {
+      var remainder = scrollPane.width() - scrollContent.width();
+      var leftVal = scrollContent.css( "margin-left" ) === "auto" ? 0 :
+        parseInt( scrollContent.css( "margin-left" ) );
+      var percentage = Math.round( leftVal / remainder * 100 );
+      scrollbar.slider( "value", percentage );
+    }
+ 
+    //if the slider is 100% and window gets larger, reveal content
+    function reflowContent() {
+        var showing = scrollContent.width() + parseInt( scrollContent.css( "margin-left" ), 10 );
+        var gap = scrollPane.width() - showing;
+        if ( gap > 0 ) {
+          scrollContent.css( "margin-left", parseInt( scrollContent.css( "margin-left" ), 10 ) + gap );
+        }
+    }
+ 
+    //change handle position on window resize
+    $( window ).resize(function() {
+      resetValue();
+      sizeScrollbar();
+      reflowContent();
+    });
+    //init scrollbar size
+    setTimeout( sizeScrollbar, 10 );//safari wants a timeout
+  });
+  </script>
+
+		</footer>
+	</html>
